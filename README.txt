@@ -1,14 +1,15 @@
 This will guide you through using Ansible and Vagrant to automate the
 creation of an NginX web server. Configuration options will allow you 
 to specify a git repository that will automatically be pulled down and
-placed in the webroot of your server. Please note that I prefer to
-develop my playbooks seperately from my vagrantfiles in case the 
-former needs to be used without the latter. Consequently you will need 
-to pull down two code repositories. The instructions below will guide you.
+placed in the webroot of your server as well as the port at which you
+want to serve your site. Please note that the playbook is kept in a 
+separate repository from the vagrantfile in case the former needs to
+be used without the latter. Consequently you will need to pull down both
+repositories. The instructions below will guide you.
 
 
-Before you even start:
-======================
+Requirements:
+=============
 
 Before you can use this ansible provisioned vagrant box, make sure
 you have the following software packages installed and configured on 
@@ -24,8 +25,18 @@ You will also need an internet connection that is accessible from your
 virtual machines and does not block web traffic.
 
 
-Setting up the box:
-===================
+Warnings:
+=========
+
+1) This playbook will disable the IPTables firewall.
+2) Running this playbook will temporairly stop your NginX server.
+3) Other NginX sites running on this server will be disabled. (see notes)
+
+
+Set Up:
+=======
+note: These instructions have been tested on linux and osx. Windows
+milage may vary.
 
 1) Clone and link the necessary repositories:
     Clone the vagr_nginx repo from Github:
@@ -39,8 +50,8 @@ Setting up the box:
     Edit the vars.yml file inside of the vagr_nginx folder to
     choose your desired configuration. Here is a sample vars.yml.
 
-		gitRepo: https://github.com/puppetlabs/exercise-webpage #A git repo containing html you want to serve.
-    	portNumber: 8000 	#The port upon which you want to serve your repo.
+		gitRepo: https://github.com/puppetlabs/exercise-webpage #Git repo containing html to serve.
+    	portNumber: 8000 	#Port upon which to serve the repo.
 
 
 Starting the box:
@@ -54,19 +65,19 @@ Starting the box:
 
 Refreshing the box:
 ===================
-	If you want to update the server all you need to do is ask vagrant
+	If you want to update the HTML from git, you need to do is ask vagrant
 	to re-run the ansible playbook. use this command from inside the
-	ans_nginx directory:
+	vagr_nginx directory:
 	# vagrant provision
 
 
 Notes:
 ======
-	The ans_nginx playbook disables the iptables firewall on a linux
-	server. This can be a security problem. If you're planning to run
-	this box in production please take additional precautions to
-	secure your system.
-
+	If you run this script against a server that is already serving
+	nginx files, it will disable all your other sites in favor of its
+	own. If this happens accidentally it is easy to fix, simply 
+	create symbolic links from /etc/nginx/conf.available/site.conf to
+	/etc/nginx/conf.d
 
 -=-
 2015/06/16
