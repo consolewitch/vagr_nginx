@@ -36,7 +36,7 @@ Warnings:
 Set Up:
 =======
 note: These instructions have been tested on linux and osx. Windows
-milage may vary.
+mileage may vary.
 
 1) Clone and link the necessary repositories:
     Clone the vagr_nginx repo from Github:
@@ -56,7 +56,7 @@ milage may vary.
 
 Starting the box:
 =================
-	From inside the vagr_nginx direcotry type the following command:
+	From inside the vagr_nginx directory type the following command:
 	# vagrant up
 
 	as the script completes it will give you the address where you can
@@ -65,7 +65,7 @@ Starting the box:
 
 Refreshing the box:
 ===================
-	If you want to update the HTML from git, you need to do is ask vagrant
+	If you want to update the HTML from git, you need to ask vagrant
 	to re-run the ansible playbook. use this command from inside the
 	vagr_nginx directory:
 	# vagrant provision
@@ -79,6 +79,10 @@ Notes:
 	create symbolic links from /etc/nginx/conf.available/site.conf to
 	/etc/nginx/conf.d
 
+	This playbook is designed for Centos 6.x. Centos 7 introduced
+	systemd and some other technologies that may not be compatible.
+	It will not run on Ubuntu and has not been tested on any other
+	Linux distribution.
 -=-
 2015/06/16
 alex@speaks.io
