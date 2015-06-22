@@ -5,7 +5,14 @@ placed in the webroot of your server as well as the port at which you
 want to serve your site. Please note that the playbook is kept in a 
 separate repository from the vagrantfile in case the former needs to
 be used without the latter. Consequently you will need to pull down both
-repositories. The instructions below will guide you.
+repositories.
+
+Quick Start:
+============
+    # git clone https://github.com/logicalmethods/vagr_nginx.git
+    # git clone https://github.com/logicalmethods/ans_nginx.git
+    # ln -s ../ans_nginx/ vagr_nginx/ans_nginx
+    # cd vagr_nginx;vagrant up
 
 
 Requirements:
@@ -28,14 +35,14 @@ virtual machines and does not block web traffic.
 Warnings:
 =========
 
-1) This playbook will disable the IPTables firewall.
+1) This playbook will disable the IPTables firewall on the target host.
 2) Running this playbook will temporairly stop your NginX server.
 3) Other NginX sites running on this server will be disabled. (see notes)
 
 
 Set Up:
 =======
-note: These instructions have been tested on linux and osx. Windows
+note: These instructions have been tested on Linux and OS X, Windows
 mileage may vary.
 
 1) Clone and link the necessary repositories:
@@ -50,7 +57,7 @@ mileage may vary.
     Edit the vars.yml file inside of the vagr_nginx folder to
     choose your desired configuration. Here is a sample vars.yml.
 
-		gitRepo: https://github.com/puppetlabs/exercise-webpage #Git repo containing html to serve.
+	gitRepo: https://github.com/puppetlabs/exercise-webpage #Git repo containing html to serve.
     	portNumber: 8000 	#Port upon which to serve the repo.
 
 
@@ -83,6 +90,7 @@ Notes:
 	systemd and some other technologies that may not be compatible.
 	It will not run on Ubuntu and has not been tested on any other
 	Linux distribution.
+
 -=-
 2015/06/16
 alex@speaks.io
